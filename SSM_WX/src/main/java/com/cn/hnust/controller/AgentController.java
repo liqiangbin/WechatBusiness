@@ -49,6 +49,7 @@ public class AgentController {
 				ag.setCountSubAgents(ag.getCountSubAgents() + 1);
 				agentService.edit(ag);
 			}
+			
 		} catch (Exception e) {
 			errMsg = "报单失败！";
 			e.printStackTrace();
