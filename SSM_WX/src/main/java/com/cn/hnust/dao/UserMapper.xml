@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="referee_weixin" property="refereeWeixin" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="agentweixin" property="agentweixin" jdbcType="VARCHAR" />
+    <result column="leaderID" property="leaderid" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="userSearchParams" >
+    <if test="id != null">
+      AND Id = #{id} 
+    </if>
+    <if test="weixin != null and weixin !=''">
+      AND weixin= #{weixin} 
+    </if>
+    <if test="agentweixin != null and agentweixin !=''">
+      AND agentweixin= #{agentweixin} 
+    </if>
+    </sql>
+    
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, weixin, referee_weixin, tel, createtime, agentweixin, leaderID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+   <select id="getUserByParams" resultMap="BaseResultMap"> 
+   select 
+   <include refid="Base_Column_List" />
+    from user WHERE 1=1
+    <include refid="userSearchParams" />
+    order by id DESC 
+  </select> 
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cn.hnust.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.pojo.User" >
+    insert into user (id, name, weixin, 
+      referee_weixin, tel, createtime, 
+      agentweixin, leaderID)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, 
+      #{refereeWeixin,jdbcType=VARCHAR}, #{tel,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{agentweixin,jdbcType=INTEGER}, #{leaderid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="weixin != null" >
+        weixin,
+      </if>
+      <if test="refereeWeixin != null" >
+        referee_weixin,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="refereeweixin != null" >
+        agentweixin,
+      </if>
+      <if test="leaderid != null" >
+        leaderID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="refereeWeixin != null" >
+        #{refereeWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refereeweixin != null" >
+        #{agentweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderid != null" >
+        #{leaderid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cn.hnust.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixin != null" >
+        weixin = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refereeWeixin != null" >
+        referee_weixin = #{record.refereeWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.refereeweixin != null" >
+        agentweixin = #{record.agentweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaderid != null" >
+        leaderID = #{record.leaderid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      weixin = #{record.weixin,jdbcType=VARCHAR},
+      referee_weixin = #{record.refereeWeixin,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      agentweixin = #{record.agentweixin,jdbcType=VARCHAR},
+      leaderID = #{record.leaderid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="refereeWeixin != null" >
+        referee_weixin = #{refereeWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refereeweixin != null" >
+        agentweixin = #{agentweixin,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderid != null" >
+        leaderID = #{leaderid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      referee_weixin = #{refereeWeixin,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      agentweixin = #{agentweixin,jdbcType=VARCHAR},
+      leaderID = #{leaderid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="getCountByAWeixin" resultType="int" parameterType="string">
+  	SELECT COUNT(*) FROM user GROUP BY AGENTWEIXIN HAVING agentweixin=#{weixin,jdbcType=VARCHAR};
+  </select>
+</mapper>

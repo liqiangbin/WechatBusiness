@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<title>立牌扫码</title>
+<script src="js/jquery-2.1.4.min.js"></script>
+<link  href="css/common.css" rel="stylesheet" />
+</head>
+
+<body ontouchstart class="bg_gray">
+	<header class="header_error">
+		<img src="images/error.png" class="error_img">
+		<p class="error_1">扫码失败</p>
+		<p class="error_2">扫码失败，该立牌可能已被注册</p>
+	</header>
+	<script>
+		function bodySize(){
+			var screenWidth = screen.width;
+			$("html").css("font-size", Math.floor( screenWidth *0.1*2.677)+"px")
+		}
+		bodySize();
+		$(window).resize(function(){
+			bodySize();
+		})
+	</script>
+</body>
+</html>
+   

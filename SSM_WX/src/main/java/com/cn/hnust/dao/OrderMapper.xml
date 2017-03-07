@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Order" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+    <result column="userID" property="userid" jdbcType="INTEGER" />
+    <result column="yewuID" property="yewuid" jdbcType="INTEGER" />
+    <result column="packageID" property="packageid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="sum" property="sum" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ordertime, userID, yewuID, packageID, price, num, sum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cn.hnust.pojo.OrderExample" >
+    delete from myorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.pojo.Order" >
+    insert into myorder (id, ordertime, userID, 
+      yewuID, packageID, price, 
+      num, sum)
+    values (#{id,jdbcType=INTEGER}, #{ordertime,jdbcType=TIMESTAMP}, #{userid,jdbcType=INTEGER}, 
+      #{yewuid,jdbcType=INTEGER}, #{packageid,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{num,jdbcType=INTEGER}, #{sum,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.Order" >
+    insert into myorder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ordertime != null" >
+        ordertime,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="yewuid != null" >
+        yewuID,
+      </if>
+      <if test="packageid != null" >
+        packageID,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="sum != null" >
+        sum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="yewuid != null" >
+        #{yewuid,jdbcType=INTEGER},
+      </if>
+      <if test="packageid != null" >
+        #{packageid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="sum != null" >
+        #{sum,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cn.hnust.pojo.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from myorder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectByParams" resultMap="BaseResultMap"  parameterType="java.util.HashMap">  
+        select 
+         <include refid="Base_Column_List" />
+         from  myorder  
+        <where> 1=1 
+        <if test="startTime!=null and startTime!='' ">  
+        and   ordertime>=#{startTime}    
+        </if>  
+       <if test="endTime!=null and endTime!='' ">  
+        and   ordertime  &lt;=#{endTime}    
+        </if> 
+        <if test="yewuid!=0">  
+        and  yewuid=#{yewuid}  
+        </if>
+       </where>    
+    </select> 
+  
+  <update id="updateByExampleSelective" parameterType="map" >
+    update myorder
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordertime != null" >
+        ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        userID = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.yewuid != null" >
+        yewuID = #{record.yewuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.packageid != null" >
+        packageID = #{record.packageid,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.sum != null" >
+        sum = #{record.sum,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update myorder
+    set id = #{record.id,jdbcType=INTEGER},
+      ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      userID = #{record.userid,jdbcType=INTEGER},
+      yewuID = #{record.yewuid,jdbcType=INTEGER},
+      packageID = #{record.packageid,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE},
+      num = #{record.num,jdbcType=INTEGER},
+      sum = #{record.sum,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.Order" >
+    update myorder
+    <set >
+      <if test="ordertime != null" >
+        ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="yewuid != null" >
+        yewuID = #{yewuid,jdbcType=INTEGER},
+      </if>
+      <if test="packageid != null" >
+        packageID = #{packageid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="sum != null" >
+        sum = #{sum,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.Order" >
+    update myorder
+    set ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      userID = #{userid,jdbcType=INTEGER},
+      yewuID = #{yewuid,jdbcType=INTEGER},
+      packageID = #{packageid,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      num = #{num,jdbcType=INTEGER},
+      sum = #{sum,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+</mapper>

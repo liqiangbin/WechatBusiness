@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<title>扫码绑定</title>
+<script src="js/jquery-2.1.4.min.js"></script>
+<link  href="css/common.css" rel="stylesheet" />
+</head>
+
+<body ontouchstart class="bg_gray">
+	<header class="header_code">
+		<img src="images/code.png" class="code_img">
+		<p>扫描二维码，绑定客户号</p>
+	</header>
+
+	<div class="row_btn">
+		<a class="blue btn">扫码绑定</a>
+	</div>
+	<script>
+		function bodySize(){
+			var screenWidth = screen.width;
+			$("html").css("font-size", Math.floor( screenWidth *0.1*2.677)+"px")
+		}
+		bodySize();
+		$(window).resize(function(){
+			bodySize();
+		})
+	</script>
+</body>
+</html>
+   

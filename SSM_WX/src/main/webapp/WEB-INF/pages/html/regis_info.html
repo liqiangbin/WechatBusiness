@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<title>注册新的商户</title>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/mobilebone.js"></script>
+<script type="text/javascript" src="js/jquery.cityselect.js"></script>
+<link  href="css/common.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/mobilebone.css">
+</head>
+
+<body ontouchstart class="bg_gray">
+	<div class="page in pageHome" id="homePage">
+		
+	<header class="header">
+		<img src="images/logo.png">
+	</header>
+	<section class="merchant_info">
+		<p></p>
+		<div class="merchant_info_detail">
+			<label>客户号</label>
+			<input type="text" class="blue arial" value="123456789012345" readonly="">
+		</div>
+		<div class="merchant_info_detail">
+			<label>推荐人</label>
+			<input type="text" name="" placeholder="选填">
+		</div>
+	</section>
+	<section class="merchant_info">
+		<p></p>
+		<div class="merchant_info_detail">
+			<label>商户名</label>
+			<input type="text" name="" placeholder="商户全称或简称">
+		</div>
+		<a href="#&province"><div class="merchant_info_detail">
+			<label>所在省市</label>
+			<input type="text" name="" placeholder="" readonly="" id="addressShow">
+			<span></span>
+		</div></a>
+		<div class="merchant_info_detail">
+			<label>街道地址</label>
+			<input type="text" name="" placeholder="本列不含省市">
+		</div>
+	</section>
+	<section class="merchant_info">
+		<p></p>
+		<div class="merchant_info_detail">
+			<label>开户名</label>
+			<input type="text" name="" placeholder="店主姓名或商户开户名开户名">
+		</div>
+		<div class="merchant_info_detail">
+			<label>开户行</label>
+			<input type="text" name="" placeholder="XX银行XX支行">
+			<span></span>
+		</div>
+		<div class="merchant_info_detail">
+			<label>银行账号</label>
+			<input type="text" name="" placeholder="店主账号或商户账号">
+		</div>
+		<div class="merchant_info_detail">
+			<label>身份证号</label>
+			<input type="text" name="" placeholder="店主身份证">
+		</div>
+	</section>
+	<div class="row_btn">
+		<a class="blue btn">注册</a>
+	</div>
+
+	</div>
+	<div class="page icon out" id="province">
+		<div class="province_list" id="provinceList">
+		
+	</div>
+	</div>
+	<div class="page icon out" id="city">
+		<div class="province_list" id="cityList"> 
+	</div>
+	</div>
+
+
+	<div class="page icon out" id="dist">
+		<div class="province_list" id="distList"> 
+	</div>
+	</div>
+	<script>
+		function bodySize(){
+			var screenWidth = screen.width;
+			$("html").css("font-size", Math.floor( screenWidth *0.1*2.677)+"px")
+		}
+		bodySize();
+		$(window).resize(function(){
+			bodySize();
+		})
+	</script>
+</body>
+</html>
+   

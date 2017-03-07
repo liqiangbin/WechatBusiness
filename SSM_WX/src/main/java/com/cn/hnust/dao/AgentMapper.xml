@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.dao.AgentMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.pojo.Agent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="referee_weixin" property="refereeWeixin" jdbcType="VARCHAR" />
+    <result column="leaderID1" property="leaderid1" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="leaderID2" property="leaderid2" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="count_sub_agents" property="countSubAgents" jdbcType="INTEGER" />
+    <result column="count_user" property="countUser" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, weixin, tel, referee_weixin, leaderID1, type, createtime, leaderID2, level, 
+    count_sub_agents, count_user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cn.hnust.pojo.AgentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from agent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from agent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from agent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cn.hnust.pojo.AgentExample" >
+    delete from agent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.pojo.Agent" >
+    insert into agent (id, name, weixin, 
+      tel, referee_weixin, leaderID1, 
+      type, createtime, leaderID2, 
+      level, count_sub_agents, count_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{refereeWeixin,jdbcType=VARCHAR}, #{leaderid1,jdbcType=INTEGER}, 
+      #{type,jdbcType=CHAR}, #{createtime,jdbcType=TIMESTAMP}, #{leaderid2,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{countSubAgents,jdbcType=INTEGER}, #{countUser,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.pojo.Agent" >
+    insert into agent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="weixin != null" >
+        weixin,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="refereeWeixin != null" >
+        referee_weixin,
+      </if>
+      <if test="leaderid1 != null" >
+        leaderID1,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="leaderid2 != null" >
+        leaderID2,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="countSubAgents != null" >
+        count_sub_agents,
+      </if>
+      <if test="countUser != null" >
+        count_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="refereeWeixin != null" >
+        #{refereeWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderid1 != null" >
+        #{leaderid1,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaderid2 != null" >
+        #{leaderid2,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="countSubAgents != null" >
+        #{countSubAgents,jdbcType=INTEGER},
+      </if>
+      <if test="countUser != null" >
+        #{countUser,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cn.hnust.pojo.AgentExample" resultType="java.lang.Integer" >
+    select count(*) from agent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update agent
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixin != null" >
+        weixin = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refereeWeixin != null" >
+        referee_weixin = #{record.refereeWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaderid1 != null" >
+        leaderID1 = #{record.leaderid1,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.leaderid2 != null" >
+        leaderID2 = #{record.leaderid2,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.countSubAgents != null" >
+        count_sub_agents = #{record.countSubAgents,jdbcType=INTEGER},
+      </if>
+      <if test="record.countUser != null" >
+        count_user = #{record.countUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update agent
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      weixin = #{record.weixin,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      referee_weixin = #{record.refereeWeixin,jdbcType=VARCHAR},
+      leaderID1 = #{record.leaderid1,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=CHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      leaderID2 = #{record.leaderid2,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      count_sub_agents = #{record.countSubAgents,jdbcType=INTEGER},
+      count_user = #{record.countUser,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.pojo.Agent" >
+    update agent
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="refereeWeixin != null" >
+        referee_weixin = #{refereeWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderid1 != null" >
+        leaderID1 = #{leaderid1,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaderid2 != null" >
+        leaderID2 = #{leaderid2,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="countSubAgents != null" >
+        count_sub_agents = #{countSubAgents,jdbcType=INTEGER},
+      </if>
+      <if test="countUser != null" >
+        count_user = #{countUser,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.Agent" >
+    update agent
+    set name = #{name,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      referee_weixin = #{refereeWeixin,jdbcType=VARCHAR},
+      leaderID1 = #{leaderid1,jdbcType=INTEGER},
+      type = #{type,jdbcType=CHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      leaderID2 = #{leaderid2,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      count_sub_agents = #{countSubAgents,jdbcType=INTEGER},
+      count_user = #{countUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getCount" resultType="int">
+  	SELECT COUNT(*) FROM agent;
+  </select>
+</mapper>
