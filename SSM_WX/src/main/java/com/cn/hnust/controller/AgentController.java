@@ -26,6 +26,7 @@ import com.cn.hnust.utils.PageBean;
 @Controller
 @RequestMapping("/agent")
 public class AgentController {
+	
 	@Autowired
 	private IAgentService agentService;
 	@Autowired
